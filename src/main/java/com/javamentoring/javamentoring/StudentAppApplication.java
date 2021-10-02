@@ -3,11 +3,12 @@ package com.javamentoring.javamentoring;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
-public class JavaMentoringApplication {
+public class StudentAppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(JavaMentoringApplication.class, args);
+		SpringApplication.run(StudentAppApplication.class, args);
 	}
 
 }
