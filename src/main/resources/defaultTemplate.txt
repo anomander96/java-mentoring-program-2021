@@ -1,0 +1,4 @@
+To: #{recipient}
+Subject: #{subject}
+Dear, #{name}
+We are glad to invite You into our conference which will take place this year in winter.
