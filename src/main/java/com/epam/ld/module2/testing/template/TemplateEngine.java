@@ -88,7 +88,7 @@ public class TemplateEngine {
         Client client = new Client();
         Template template = new Template();
 
-        template.setTemplate("Dear #{NAME}, this is massage about #{EVENT}");
+        template.setTemplate("Dear #{NAME}, this is massage about #{NEWS}");
         Map<String, String> map = new HashMap<>();
         client.setVariables(map);
 
