@@ -17,13 +17,12 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @DisabledOnJre(JRE.OTHER)
 public class MailServerTest {
 
-    private static final String EXPECTED = "Dear anyName, this is massage about anyEvent notification";
+    private static final String EXPECTED = "Dear Andrew, this is massage about insurance changes";
     private static final String INPUT_RESOURCE = "src/main/resources/input.txt";
 
     private final MailServer mailServer = new MailServer();
@@ -36,21 +35,21 @@ public class MailServerTest {
 
     @BeforeEach
     public void setUp() {
-        template.setTemplate("Dear #{NAME}, this is massage about #{EVENT} notification");
+        template.setTemplate("Dear #{NAME}, this is massage about #{NEWS}");
         Map<String, String> map = new HashMap<>();
         client.setVariables(map);
     }
 
     @Test
-    public void testMock(){
+    public void testPartialMock(){
         MailServer mailServer = mock(MailServer.class);
-        when(mailServer.send(client.getAddresses()).thenReturn(template.getTemplate()));
+        when(mailServer.getSentMessage()).thenReturn(template.getTemplate());
     }
 
     @Test
-    public void testSpy(){
+    public void spyTest(){
         MailServer spy = spy(mailServer);
-        when(spy.send(client.getAddresses())).thenReturn(template.getTemplate());
+        when(spy.getSentMessage()).thenReturn(template.getTemplate());
     }
 
     @Test
@@ -58,7 +57,6 @@ public class MailServerTest {
     public void testTemporaryFolderSentInFileMode() {
         client.setAddresses(INPUT_RESOURCE);
         String generateMessage = templateEngine.generateMessage(template, client);
-
         mailServer.send(file.toString(), generateMessage);
 
         Assertions.assertEquals(EXPECTED, generateMessage);
@@ -90,7 +88,7 @@ public class MailServerTest {
     @Test
     @Tag("consoleMode")
     public void testSentInConsoleMode() {
-        ByteArrayInputStream in = new ByteArrayInputStream("anyName\nanyEvent\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("Andrew\ninsurance changes\n".getBytes());
         System.setIn(in);
 
         String generateMessage = templateEngine.generateMessage(template, client);

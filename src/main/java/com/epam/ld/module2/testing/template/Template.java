@@ -22,6 +22,14 @@ public class Template {
         return template;
     }
 
+    public void setTemplate(String template) {
+        this.template = template;
+    }
+
+    public String getDefaultTemplate() {
+        return "Dear #{NAME}, we are pleased to inform about #{NEWS}";
+    }
+
     public String getTemplateFromFile(String fullFileName) {
         StringBuilder defaultMessageBody = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(fullFileName))) {
@@ -33,15 +41,4 @@ public class Template {
             e.printStackTrace();
         } return defaultMessageBody.toString();
     }
-
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
-//    public static void main(String[] args) {
-//        Template template = new Template();
-//        String fullFileName = "src/main/resources/defaultTemplate.txt";
-//        String messageBody = template.getTemplate(fullFileName);
-//        System.out.println(messageBody);
-//    }
 }
